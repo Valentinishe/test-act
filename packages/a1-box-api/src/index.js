@@ -1,6 +1,8 @@
 class BoxClient {
   constructor() {
-    this.box = {};
+    this.box = {
+      a: 1
+    };
   }
 
   getBox() {  
