@@ -1,0 +1,49 @@
+{
+  "name": "@valentinishe/test-act",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "prepare": "husky install",
+    "install-all": "lerna run --parallel install-deps",
+    "lint": "npx eslint -c  .eslintrc.json packages",
+    "lint:fix": "npx eslint -c  .eslintrc.json packages --fix",
+    "test": "lerna run --parallel test",
+    "precommit": "lint-staged",
+    "publish": "lerna publish",
+    "local-npm-repo": "verdaccio --listen 4873 --config ./verdaccio.yaml",
+    "local-publish": "HUSKY_SKIP_HOOKS=1 lerna publish --no-git-tag-version --no-push --registry=\"http://localhost:4873/\"",
+    "local-unpublish": "lerna exec -- npm unpublish --registry=\"http://localhost:4873/\" \"\\${LERNA_PACKAGE_NAME}@\\$(npm view \\$LERNA_PACKAGE_NAME version)\"",
+    "local-unpublish-all": "lerna exec -- npm unpublish -f --registry=\"http://localhost:4873/\" \"\\${LERNA_PACKAGE_NAME}\""
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Valentinishe/test-act.git"
+  },
+  "author": "HalfSerious",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Valentinishe/test-act/issues"
+  },
+  "homepage": "https://github.com/Valentinishe/test-act#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^26.2.2",
+    "husky": "^8.0.1",
+    "lerna": "^4.0.0",
+    "lint-staged": "^13.0.0",
+    "verdaccio": "^5.15.4"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "eslint -c .eslintrc.json --fix"
+    ]
+  }
+}
