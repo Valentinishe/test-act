@@ -53,9 +53,8 @@ jobs:
     name: Changed package CI
     runs-on: ubuntu-latest
     needs: getChangedPackages
-    permissions:
-      contents: read
-      packages: write
+    permissions: write-all
+
     if: ${{ needs.getChangedPackages.outputs.changedPackages != '[]' && needs.getChangedPackages.outputs.changedPackages != '' }}
     strategy:
       matrix:
