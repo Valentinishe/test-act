@@ -1,0 +1,7 @@
+index.zip
+node_modules
+serverless.json
+*.tgz
+test/
+_test/
+doc/
