@@ -5,6 +5,6 @@ describe('index.spec.js', () => {
   it('getBox - success', async () => {
     const boxClient = getBoxClient();
 
-    expect(boxClient.getBox()).toEqual({});
+    expect(boxClient.getBox()).toEqual({ a: 1 });
   });
 });
