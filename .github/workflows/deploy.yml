@@ -65,6 +65,8 @@ jobs:
       - name: Get info abott package.json
         id: info
         uses: jaywcjlove/github-action-package@main
+        with:
+          path: ./packages/${{ matrix.packageName }}
       - name: Checkout repository ${{ matrix.packageName }}
         uses: actions/checkout@v3
            # Setup .npmrc file to publish to npm
