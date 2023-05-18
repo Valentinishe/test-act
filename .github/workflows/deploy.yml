@@ -62,11 +62,6 @@ jobs:
         packageName: ${{ fromJSON(needs.getChangedPackages.outputs.changedPackages) }}
         node: [16]
     steps:
-      - name: Get info abott package.json
-        id: info
-        uses: jaywcjlove/github-action-package@main
-        with:
-          path: ./packages/${{ matrix.packageName }}
       - name: Checkout repository ${{ matrix.packageName }}
         uses: actions/checkout@v3
            # Setup .npmrc file to publish to npm
@@ -75,6 +70,11 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
+      - name: Get info abott package.json
+        id: info
+        uses: jaywcjlove/github-action-package@main
+        with:
+          path: ./packages/${{ matrix.packageName }}
       - name: Deploy changed package
         run: npm publish
         working-directory: ./packages/${{ matrix.packageName }}
