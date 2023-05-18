@@ -70,15 +70,20 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Get info abott package.json
+      
+      - name: Get info about package.json
+        uses: myrotvorets/info-from-package-json-action@1.0.0
         id: info
-        uses: jaywcjlove/github-action-package@main
+        with:
+          workingdir: ./packages/${{ matrix.packageName }}
+
       - name: Deploy changed package
         run: npm publish
         working-directory: ./packages/${{ matrix.packageName }}
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-      - name: Comment about pablished pacjage
+      
+      - name: Comment about published package
         uses: actions/github-script@v6
         with:
           script: |
