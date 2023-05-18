@@ -50,14 +50,13 @@ jobs:
               - packages/a1-utils/**
   
 
-  tests:
-    name: Changed package CI
+  install-and-test:
     runs-on: ubuntu-latest
     needs: getChangedPackages
-    permissions: write-all
 
     if: ${{ needs.getChangedPackages.outputs.changedPackages != '[]' && needs.getChangedPackages.outputs.changedPackages != '' }}
     strategy:
+      fail-fast: true
       matrix:
         packageName: ${{ fromJSON(needs.getChangedPackages.outputs.changedPackages) }}
         node-version: [16]
