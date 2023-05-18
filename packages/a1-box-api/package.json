@@ -1,11 +1,15 @@
 {
-  "name": "@valentinishe/a1-box-api",
-  "version": "1.0.0",
+  "name": "a1-box-api",
+  "version": "1.0.10",
   "description": "Utilities functions for Box Integration",
   "main": "src/index.js",
   "scripts": {
     "install-deps": "rm -rf node_modules && npm install",
     "test": "TEST_REPORT_PATH=./test jest ./test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Valentinishe/test-act.git"
   },
   "author": "valentinishe",
   "license": "ISC",

@@ -69,7 +69,7 @@ jobs:
         working-directory: ./packages/${{ matrix.packageName }}
         run: npm install
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.EVENTBUS_DEVOPS_PAT }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
       - name: Test and Generate Coverage
         working-directory: ./packages/${{ matrix.packageName }}
