@@ -1,0 +1,72 @@
+name: Publish package to GitHub Packages
+on:
+  push:
+    branches:
+      - develop
+permissions: write-all
+
+jobs:
+  getChangedPackages:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      changedPackages: ${{ steps.filter.outputs.changes }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            a1-box-api:
+              - packages/a1-box-api/**            
+            a1-dynamo-client:
+              - packages/a1-dynamo-client/**            
+            a1-eventbus:
+              - packages/a1-eventbus/**            
+            a1-eventbus-generator:
+              - packages/a1-eventbus-generator/**           
+            a1-first-integrity-api:
+              - packages/a1-first-integrity-api/**           
+            a1-fotonotes-api:
+              - packages/a1-fotonotes-api/**          
+            a1-logger-v2:
+              - packages/a1-logger-v2/**          
+            a1-maestro-api:
+              - packages/a1-maestro-api/**          
+            a1-monday-api:
+              - packages/a1-monday-api/**          
+            a1-object-mapper:
+              - packages/a1-object-mapper/**          
+            a1-qualia-api:
+              - packages/a1-qualia-api/**         
+            a1-spruce-api:
+              - packages/a1-spruce-api/**         
+            a1-unqork-api:
+              - packages/a1-unqork-api/**         
+            a1-utils:
+              - packages/a1-utils/**
+
+  tests:
+    name: Changed package CI
+    runs-on: ubuntu-latest
+    needs: getChangedPackages
+    permissions:
+      contents: read
+      packages: write
+    if: ${{ needs.getChangedPackages.outputs.changedPackages != '[]' && needs.getChangedPackages.outputs.changedPackages != '' }}
+    strategy:
+      matrix:
+        packageName: ${{ fromJSON(needs.getChangedPackages.outputs.changedPackages) }}
+        node: [16]
+    steps:
+      - name: Checkout repository ${{ matrix.packageName }}
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Deploy Changed Packages
+        run: npm publish
+        working-directory: ./packages/${{ matrix.packageName }}
+        env:
+            NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
