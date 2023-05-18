@@ -73,8 +73,6 @@ jobs:
       - name: Get info abott package.json
         id: info
         uses: jaywcjlove/github-action-package@main
-        with:
-          path: ./packages/${{ matrix.packageName }}
       - name: Deploy changed package
         run: npm publish
         working-directory: ./packages/${{ matrix.packageName }}
