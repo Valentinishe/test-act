@@ -1,0 +1,31 @@
+{
+  "name": "@valentinishe/a1-box-api",
+  "version": "1.0.0",
+  "description": "Utilities functions for Box Integration",
+  "main": "src/index.js",
+  "scripts": {
+    "install-deps": "rm -rf node_modules && npm install",
+    "test": "TEST_REPORT_PATH=./test jest ./test/*.js"
+  },
+  "author": "valentinishe",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@jest/globals": "^28.1.1",
+    "jest": "^28.1.1"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ],
+    "coverageDirectory": "./test/reports",
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ]
+  }
+}
+
