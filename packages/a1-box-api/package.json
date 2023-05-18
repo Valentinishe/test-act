@@ -1,5 +1,5 @@
 {
-  "name": "@valentinishe/a1-box-api",
+  "name": "a1-box-api",
   "version": "1.0.0",
   "description": "Utilities functions for Box Integration",
   "main": "src/index.js",
