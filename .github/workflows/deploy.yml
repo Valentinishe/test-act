@@ -62,6 +62,9 @@ jobs:
         packageName: ${{ fromJSON(needs.getChangedPackages.outputs.changedPackages) }}
         node: [16]
     steps:
+      - name: Get info abott package.json
+        id: info
+        uses: jaywcjlove/github-action-package@main
       - name: Checkout repository ${{ matrix.packageName }}
         uses: actions/checkout@v3
            # Setup .npmrc file to publish to npm
@@ -70,8 +73,19 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-      - name: Deploy Changed Packages
+      - name: Deploy changed package
         run: npm publish
         working-directory: ./packages/${{ matrix.packageName }}
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Comment about pablished pacjage
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '${{ steps.info.outputs.name }} v.${{steps.info.outputs.version}}% was published successfully.'
+            })
+
