@@ -7,6 +7,10 @@
     "install-deps": "rm -rf node_modules && npm install",
     "test": "TEST_REPORT_PATH=./test jest ./test/*.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Valentinishe/test-act.git"
+  },
   "author": "valentinishe",
   "license": "ISC",
   "dependencies": {},
