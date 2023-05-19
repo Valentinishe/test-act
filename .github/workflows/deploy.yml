@@ -1,6 +1,6 @@
 name: Publish package to GitHub Packages
 on:
-  pull_request:
+  push:
     branches:
       - develop
 permissions: write-all
@@ -84,6 +84,7 @@ jobs:
       - name: Comment about published package
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
