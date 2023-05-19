@@ -72,22 +72,24 @@ jobs:
       
       - name: Get info from package.json
         uses: myrotvorets/info-from-package-json-action@1.0.0
-        id: packageInfo
+        id: packageInfoId
         with:
           workingdir: ./packages/${{ matrix.packageName }}
 
       - name: Deploy changed package
+        id: publishId
         run: npm publish
         working-directory: ./packages/${{ matrix.packageName }}
+        continue-on-error: true
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: ${{steps.packageInfo.outputs.packageVersion}}
+          automatic_release_tag: ${{steps.packageInfoId.outputs.packageVersion}}
           prerelease: false
-          title: ${{ steps.packageInfo.outputs.packageName }}
+          title: ${{ steps.packageInfoId.outputs.packageName }}
           files: |
             LICENSE.txt
             *.jar
@@ -95,9 +97,18 @@ jobs:
       # NOTICE: replaced actions/github-script@v6 to mshick/add-pr-comment@v2
       # Reason: actions/github-script@v6 does not work with push trigger
       - uses: mshick/add-pr-comment@v2
+        if: (${{ steps.publishId.outcome == 'success' }})
         with:
+          allow-repeats: true
           message: |
-            ${{ steps.packageInfo.outputs.packageName }} v.${{steps.packageInfo.outputs.packageVersion}} was published successfully.
+            ${{ steps.packageInfoId.outputs.packageName }} v.${{steps.packageInfoId.outputs.packageVersion}} was published successfully.
             https://github.com/Valentinishe/test-act/pkgs/npm/${{ matrix.packageName }}
-            https://github.com/Valentinishe/test-act/releases?q=${{ steps.packageInfo.outputs.packageName }}&expanded=true
+            https://github.com/Valentinishe/test-act/releases?q=${{ steps.packageInfoId.outputs.packageName }}&expanded=true
+
+      - uses: mshick/add-pr-comment@v2
+        if: (${{ steps.publishId.outcome !== 'failure' }})
+        with:
+          allow-repeats: true
+          message: |
+            ${{ steps.packageInfoId.outputs.packageName }} v.${{steps.packageInfoId.outputs.packageVersion}} **NOT** was published successfully.
 
