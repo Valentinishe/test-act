@@ -10,7 +10,6 @@ class BoxClient {
   }
 };
 
-
 function getBoxClient() {
   const boxClient = new BoxClient();
 
