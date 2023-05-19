@@ -98,6 +98,6 @@ jobs:
         with:
           message: |
             ${{ steps.packageInfo.outputs.packageName }} v.${{steps.packageInfo.outputs.packageVersion}} was published successfully.
-            \nhttps://github.com/Valentinishe/test-act/pkgs/npm/${{ matrix.packageName }}
-            \nhttps://github.com/Valentinishe/test-act/releases?q=${{ steps.packageInfo.outputs.packageName }}&expanded=true
+            https://github.com/Valentinishe/test-act/pkgs/npm/${{ matrix.packageName }}
+            https://github.com/Valentinishe/test-act/releases?q=${{ steps.packageInfo.outputs.packageName }}&expanded=true
 
