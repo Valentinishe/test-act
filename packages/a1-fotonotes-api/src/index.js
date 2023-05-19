@@ -11,6 +11,7 @@ class FotonotesClient {
   
 };
 
+
 function getFotonotesClient() {
   
   const fotonotesClient = new FotonotesClient();
