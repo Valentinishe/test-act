@@ -93,15 +93,24 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const pullRequests = await github.rest.pulls.list({
+            console.log('context.repo.owner', context?.repo?.owner);
+            console.log('context.repo.repo', context?.repo?.repo);
+            console.log('context?.issue', context?.issue);
+
+            const issues = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'open',
               head: `${context.repo.owner}:${context.ref.replace('refs/heads/', '')}`
-            });
-            console.log('dddd', pullRequests?.data[0]);
+            })
+
+            const pr = context.issue.number || issues.data[0].number
+            
+            console.log('issues', issues);
+            console.log('pr', pr);
+
             github.rest.issues.createComment({
-              issue_number: context?.issue?.number || pullRequests?.data[0]?.number,
+              issue_number: pr,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: '${{ steps.packageInfo.outputs.packageName }} v.${{steps.packageInfo.outputs.packageVersion}} was published successfully.\nhttps://github.com/Valentinishe/test-act/pkgs/npm/${{ matrix.packageName }}'
