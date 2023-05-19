@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - develop
+  pull_request:
+
 permissions: write-all
 
 jobs:
@@ -76,12 +78,14 @@ jobs:
           workingdir: ./packages/${{ matrix.packageName }}
 
       - name: Deploy changed package
+        if: github.event_name == 'push'
         run: npm publish
         working-directory: ./packages/${{ matrix.packageName }}
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       
       - name: Comment about published package
+        if: github.event_name == 'push'
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -94,6 +98,7 @@ jobs:
             })
 
       - uses: "marvinpinto/action-automatic-releases@latest"
+        if: github.event_name == 'push'
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: ${{steps.packageInfo.outputs.packageVersion}}

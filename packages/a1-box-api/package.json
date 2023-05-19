@@ -1,6 +1,6 @@
 {
   "name": "@valentinishe/a1-box-api",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Utilities functions for Box Integration",
   "main": "src/index.js",
   "scripts": {
