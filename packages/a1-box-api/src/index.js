@@ -1,5 +1,6 @@
 class BoxClient {
   constructor() {
+
     this.box = {
       a: 2
     };
