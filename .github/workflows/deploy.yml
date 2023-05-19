@@ -99,5 +99,5 @@ jobs:
           message: |
             ${{ steps.packageInfo.outputs.packageName }} v.${{steps.packageInfo.outputs.packageVersion}} was published successfully.
             \nhttps://github.com/Valentinishe/test-act/pkgs/npm/${{ matrix.packageName }}
-            \nhttps://github.com/Valentinishe/test-act/releases?q=%40${{context.repo.owner}}%2F${{ matrix.packageName }}&expanded=true
+            \nhttps://github.com/Valentinishe/test-act/releases?q=${{ steps.packageInfo.outputs.packageName }}&expanded=true
 
