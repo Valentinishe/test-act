@@ -98,7 +98,7 @@ jobs:
             });
 
             github.rest.issues.createComment({
-              issue_number: context.issue.number || pullRequests.data[0].number,
+              issue_number: context?.issue?.number || pullRequests?.data[0]?.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: '${{ steps.packageInfo.outputs.packageName }} v.${{steps.packageInfo.outputs.packageVersion}} was published successfully.\nhttps://github.com/Valentinishe/test-act/pkgs/npm/${{ matrix.packageName }}'
