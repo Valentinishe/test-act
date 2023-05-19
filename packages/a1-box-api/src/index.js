@@ -9,6 +9,7 @@ class BoxClient {
   getBox() {  
     return this.box;
   }
+  
 };
 
 
