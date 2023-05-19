@@ -91,7 +91,6 @@ jobs:
           files: |
             LICENSE.txt
             *.jar
-      
 
       # NOTICE: replaced actions/github-script@v6 to mshick/add-pr-comment@v2
       # Reason: actions/github-script@v6 does not work with push trigger
