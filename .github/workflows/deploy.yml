@@ -106,7 +106,7 @@ jobs:
             https://github.com/Valentinishe/test-act/releases?q=${{ steps.packageInfoId.outputs.packageName }}&expanded=true
 
       - uses: mshick/add-pr-comment@v2
-        if: (${{ steps.publishId.outcome !== 'failure' }})
+        if: (${{ steps.publishId.outcome == 'failure' }})
         with:
           allow-repeats: true
           message: |
