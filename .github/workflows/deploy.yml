@@ -90,12 +90,19 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const pullRequests = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              head: `${context.repo.owner}:${context.ref.replace('refs/heads/', '')}`
+            });
+
             github.rest.issues.createComment({
-              issue_number: context.issue.number,
+              issue_number: context.issue.number || pullRequests.data[0].number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: '${{ steps.packageInfo.outputs.packageName }} v.${{steps.packageInfo.outputs.packageVersion}} was published successfully.\nhttps://github.com/Valentinishe/test-act/pkgs/npm/${{ matrix.packageName }}'
-            })
+            });
 
       - uses: "marvinpinto/action-automatic-releases@latest"
         if: github.event_name == 'push'
