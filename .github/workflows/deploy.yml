@@ -1,11 +1,9 @@
 name: Publish package to GitHub Packages
 on:
-    # inputs:
-      # issue:
-      #   required: true
-    # branches:
-      # - develop
-  pull_request:
+  push:
+    branches:
+      - develop
+  # pull_request:
 
 permissions: write-all
 
@@ -103,24 +101,24 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            console.log('context.repo.owner', context?.repo?.owner);
-            console.log('context.repo.repo', context?.repo?.repo);
-            console.log('context?.issue', context?.issue);
+            # console.log('context.repo.owner', context?.repo?.owner);
+            # console.log('context.repo.repo', context?.repo?.repo);
+            # console.log('context?.issue', context?.issue);
 
-            const issues = await github.rest.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'all',
-              head: `${context.repo.owner}:${context.ref.replace('refs/heads/', '')}`
-            })
+            # const issues = await github.rest.pulls.list({
+            #   owner: context.repo.owner,
+            #   repo: context.repo.repo,
+            #   state: 'all',
+            #   head: `${context.repo.owner}:${context.ref.replace('refs/heads/', '')}`
+            # })
 
-            const pr = context?.issue?.number || issues?.data[0]?.number || 100;
+            # const pr = context?.issue?.number || issues?.data[0]?.number || 100;
             
-            console.log('issues', issues);
-            console.log('pr', pr);
+            # console.log('issues', issues);
+            # console.log('pr', pr);
 
             github.rest.issues.createComment({
-              issue_number: pr,
+              issue_number: 20,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: '${{ steps.packageInfo.outputs.packageName }} v.${{steps.packageInfo.outputs.packageVersion}} was published successfully.\nhttps://github.com/Valentinishe/test-act/pkgs/npm/${{ matrix.packageName }}'
