@@ -100,33 +100,4 @@ jobs:
             ${{ steps.packageInfo.outputs.packageName }} v.${{steps.packageInfo.outputs.packageVersion}} was published successfully.
             \nhttps://github.com/Valentinishe/test-act/pkgs/npm/${{ matrix.packageName }}
             \nhttps://github.com/Valentinishe/test-act/releases?q=%40${{context.repo.owner}}%2F${{ matrix.packageName }}&expanded=true
-      
-      - name: Comment about published package
-        # if: github.event_name == 'push'
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            # console.log('context.repo.owner', context?.repo?.owner);
-            # console.log('context.repo.repo', context?.repo?.repo);
-            # console.log('context?.issue', context?.issue);
-
-            # const issues = await github.rest.pulls.list({
-            #   owner: context.repo.owner,
-            #   repo: context.repo.repo,
-            #   state: 'all',
-            #   head: `${context.repo.owner}:${context.ref.replace('refs/heads/', '')}`
-            # })
-
-            # const pr = context?.issue?.number || issues?.data[0]?.number || 100;
-            
-            # console.log('issues', issues);
-            # console.log('pr', pr);
-
-            github.rest.issues.createComment({
-              issue_number: 21,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '${{ steps.packageInfo.outputs.packageName }} v.${{steps.packageInfo.outputs.packageVersion}} was published successfully.\nhttps://github.com/Valentinishe/test-act/pkgs/npm/${{ matrix.packageName }}'
-            });
 
