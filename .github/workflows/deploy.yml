@@ -1,11 +1,10 @@
 name: Publish package to GitHub Packages
 on:
-  push:
-    inputs:
-      issue:
-        required: true
-    branches:
-      - develop
+    # inputs:
+      # issue:
+      #   required: true
+    # branches:
+      # - develop
   pull_request:
 
 permissions: write-all
@@ -81,7 +80,7 @@ jobs:
           workingdir: ./packages/${{ matrix.packageName }}
 
       - name: Deploy changed package
-        if: github.event_name == 'push'
+        # if: github.event_name == 'push'
         run: npm publish
         working-directory: ./packages/${{ matrix.packageName }}
         env:
@@ -99,7 +98,7 @@ jobs:
             *.jar
 
       - name: Comment about published package
-        if: github.event_name == 'push'
+        # if: github.event_name == 'push'
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
