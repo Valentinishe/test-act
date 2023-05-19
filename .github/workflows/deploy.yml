@@ -103,12 +103,12 @@ jobs:
           message: |
             ${{ steps.packageInfoId.outputs.packageName }} v.${{steps.packageInfoId.outputs.packageVersion}} was published successfully.
             https://github.com/Valentinishe/test-act/pkgs/npm/${{ matrix.packageName }}
-            https://github.com/Valentinishe/test-act/releases?q=${{ matrix.packageName }}&expanded=true
+            https://github.com/Valentinishe/test-act/releases?q=${{ matrix.packageName }}
 
       - uses: mshick/add-pr-comment@v2
         if: ${{ steps.publishId.outcome == 'failure' }}
         with:
           allow-repeats: true
           message: |
-            ${{ steps.packageInfoId.outputs.packageName }} v.${{steps.packageInfoId.outputs.packageVersion}} **NOT** was published successfully.
+            ${{ steps.packageInfoId.outputs.packageName }} v.${{steps.packageInfoId.outputs.packageVersion}} **NOT** was published.
 
