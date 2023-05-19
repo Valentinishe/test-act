@@ -85,7 +85,7 @@ jobs:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       
       - name: Comment about published package
-        # if: github.event_name == 'push'
+        if: github.event_name == 'push'
         uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
