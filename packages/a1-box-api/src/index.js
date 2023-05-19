@@ -1,7 +1,7 @@
 class BoxClient {
   constructor() {
     this.box = {
-      a: 1
+      a: 2
     };
   }
 
@@ -9,7 +9,6 @@ class BoxClient {
     return this.box;
   }
 };
-
 
 function getBoxClient() {
   const boxClient = new BoxClient();
