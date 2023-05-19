@@ -8,6 +8,7 @@ class FotonotesClient {
   getFotonotes() {  
     return this.fn;
   }
+  
 };
 
 function getFotonotesClient() {
