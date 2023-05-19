@@ -63,7 +63,7 @@ jobs:
     steps:
       - name: Checkout repository ${{ matrix.packageName }}
         uses: actions/checkout@v3
-           # Setup .npmrc file to publish to npm
+
       - name: Setup .npmrc
         uses: actions/setup-node@v3
         with:
@@ -97,7 +97,7 @@ jobs:
       # NOTICE: replaced actions/github-script@v6 to mshick/add-pr-comment@v2
       # Reason: actions/github-script@v6 does not work with push trigger
       - uses: mshick/add-pr-comment@v2
-        if: (${{ steps.publishId.outcome == 'success' }})
+        if: ${{ steps.publishId.outcome == 'success' }}
         with:
           allow-repeats: true
           message: |
@@ -106,7 +106,7 @@ jobs:
             https://github.com/Valentinishe/test-act/releases?q=${{ steps.packageInfoId.outputs.packageName }}&expanded=true
 
       - uses: mshick/add-pr-comment@v2
-        if: (${{ steps.publishId.outcome == 'failure' }})
+        if: ${{ steps.publishId.outcome == 'failure' }}
         with:
           allow-repeats: true
           message: |
