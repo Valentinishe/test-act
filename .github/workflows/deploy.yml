@@ -91,6 +91,11 @@ jobs:
           files: |
             LICENSE.txt
             *.jar
+      
+      - uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            **Hello MAIN**
 
       - name: Comment about published package
         # if: github.event_name == 'push'
